@@ -199,6 +199,7 @@ for dict1 in table_items:
         update_response = update_data(logid, end_time, row_count)
         
         update_response = update_RestartabilityFlag(Library_Name, Table_name, 1)
+        print("adding a print statement at the end")
 
 
 job.commit()
