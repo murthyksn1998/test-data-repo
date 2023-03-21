@@ -1,0 +1,36 @@
+{
+  "name" : "raw-prophet21-dev",
+  "description" : "",
+  "role" : "arn:aws:iam::417234835010:role/Glue_permissions",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-scripts-417234835010-us-east-1/admin/raw-prophet21-dev",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--enable-job-insights" : "false",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-temporary-417234835010-us-east-1/admin"
+  },
+  "connections" : {
+    "connections" : [ "glue-to-redshift" ]
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "2.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "test-data-repo",
+    "branch" : "dev",
+    "folder" : "raw-prophet21-dev"
+  }
+}
