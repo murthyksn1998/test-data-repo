@@ -21,7 +21,6 @@ jobs:
 
       - name: get the latest commit
         run: |
-          git config --global --add safe.directory /__w/test-data-repo/test-data-repo
           pwd
           latest_commit=$(git rev-parse HEAD)
           echo $latest_commit
