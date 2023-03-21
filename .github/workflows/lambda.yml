@@ -19,6 +19,8 @@ jobs:
           unzip awscliv2.zip
           sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
           aws --version
+          git status
+          aws s3 ls
           #latest_commit=$(git rev-parse HEAD)
           #echo $latest_commit
           #list_of_files=$(git diff --name-only $latest_commit)
