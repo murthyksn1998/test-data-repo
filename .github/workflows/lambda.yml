@@ -24,7 +24,10 @@ jobs:
           git config --global --add safe.directory /__w/test-data-repo/test-data-repo
           pwd
           latest_commit=$(git rev-parse HEAD)
+          echo $latest_commit
           list_of_files=$(git diff --name-only $latest_commit)
+          echo $list_of_files
           aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
-          aws lambda invoke --function-name github_ci_cd --payload $list_of_files
+          aws s3 ls
+          #aws lambda invoke --function-name github_ci_cd --payload $list_of_files
