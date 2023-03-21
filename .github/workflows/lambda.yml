@@ -1,0 +1,29 @@
+name: DBT-deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  trigger-lambda-function:
+    runs-on: ubuntu-latest
+    container:
+      image: amazon/aws-cli
+    steps:
+      - name: install tar
+        run: |
+          yum install -y tar gzip
+          yum install -y git
+
+      - name: checking out to a branch
+      - uses: actions/checkout@v3
+
+      - name: get the latest commit
+        run: |
+          latest_commit=$(git rev-parse HEAD)
+          list_of_files=$(git diff --name-only $latest_commit)
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
+          aws lambda invoke --function-name github_ci_cd --payload $list_of_files
