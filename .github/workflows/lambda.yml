@@ -9,19 +9,15 @@ jobs:
 
   trigger-lambda-function:
     runs-on: ubuntu-latest
-    container:
-      image: amazon/aws-cli
     steps:
-      - name: install tar
-        run: |
-          yum install -y tar gzip
-          yum install -y git
-
       - uses: actions/checkout@v3
 
       - name: get the latest commit
         run: |
           pwd
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
           latest_commit=$(git rev-parse HEAD)
           echo $latest_commit
           list_of_files=$(git diff --name-only $latest_commit)
