@@ -21,8 +21,9 @@ jobs:
           git config --global --add safe.directory '*'
           pwd
           ls -la
-          git checkout main
           git config --global core.pager 'less'
+          export PAGER=less LESS=-cse
+          git checkout main
           echo "this is diff"
           DIFF=$(git diff-tree --no-commit-id --name-only -r HEAD --no-renames)
           echo $DIFF
