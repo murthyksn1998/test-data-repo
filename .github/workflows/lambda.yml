@@ -22,7 +22,7 @@ jobs:
           pwd
           ls -la
           git checkout main
-          git config --global core.pager ''
+          git config --global core.pager 'less'
           echo "this is diff"
           DIFF=$(git diff-tree --no-commit-id --name-only -r HEAD --no-renames)
           echo $DIFF
