@@ -18,7 +18,7 @@ jobs:
           aws-region: us-east-1
 
       - name: get the latest committed files
-        run: >
+        run: |
           git config --global --add safe.directory '*'
           DIFF=$(git diff-tree --no-commit-id --name-only -r HEAD --no-renames)
           PAYLOAD=$(base64 <<< "{\"updated_files\": \"$DIFF\"}")
