@@ -24,7 +24,7 @@ jobs:
           git checkout main
           unset LESS
           echo "this is diff"
-          DIFF=$(git diff-tree --no-commit-id --name-only -r HEAD --no-renames)
+          DIFF=$(git diff-tree --no-pager --no-commit-id --name-only -r HEAD --no-renames)
           echo $DIFF
           echo "this is payload"
           PAYLOAD=$(base64 <<< "{\"updated_files\": \"$DIFF\"}")
