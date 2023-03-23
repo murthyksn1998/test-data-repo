@@ -1,26 +1,25 @@
+---
 name: DBT-deployment
-
 on:
   push:
     branches:
       - main
-
 jobs:
-
   trigger-lambda-function:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
-      - name: configuring aws
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: us-east-1
 
-      - name: get the latest commit
-        run: |
+      - name: Configure AWS credentials
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: us-east-1
+
+      - name: get the latest committed files
+        run: >
           git config --global --add safe.directory '*'
-          git status
-          aws s3 ls
+          DIFF=$(git diff-tree --no-commit-id --name-only -r HEAD --no-renames)
+          PAYLOAD=$(base64 <<< "{\"updated_files\": \"$DIFF\"}")
+          aws lambda invoke --function-name github_ci_cd --payload "$PAYLOAD" output.json
