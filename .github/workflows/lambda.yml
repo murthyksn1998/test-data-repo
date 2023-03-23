@@ -19,6 +19,8 @@ jobs:
       - name: get the latest committed files
         run: |
           git config --global --add safe.directory '*'
+          pwd
+          git checkout main
           echo "this is diff"
           DIFF=$(git diff-tree --no-commit-id --name-only -r HEAD --no-renames)
           echo $DIFF
