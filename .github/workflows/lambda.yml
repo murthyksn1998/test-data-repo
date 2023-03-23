@@ -22,9 +22,9 @@ jobs:
           pwd
           ls -la
           git checkout main
-          unset LESS
+          git config --global core.pager ''
           echo "this is diff"
-          DIFF=$(git diff-tree --no-pager --no-commit-id --name-only -r HEAD --no-renames)
+          DIFF=$(git diff-tree --no-commit-id --name-only -r HEAD --no-renames)
           echo $DIFF
           echo "this is payload"
           PAYLOAD=$(base64 <<< "{\"updated_files\": \"$DIFF\"}")
