@@ -11,23 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      
+      - name:
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: us-east-1
 
       - name: get the latest commit
         run: |
-          pwd
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
-          sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
-          aws --version
+          git config --global --add safe.directory '*'
           git status
           aws s3 ls
-          #latest_commit=$(git rev-parse HEAD)
-          #echo $latest_commit
-          #list_of_files=$(git diff --name-only $latest_commit)
-          #echo $list_of_files
-          #aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
-          #aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_KEY }}
-          #aws configure set aws_region us-east-1
-          #aws sts get-caller-identity
-          #aws s3 ls
-          #aws lambda invoke --function-name github_ci_cd --payload $list_of_files
