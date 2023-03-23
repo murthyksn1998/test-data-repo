@@ -23,9 +23,7 @@ jobs:
           ls -la
           git config --global core.pager 'less'
           export PAGER=less LESS=-cse
-          git checkout main
-          git status
-          git diff stash@{0}^1 stash@{0}
+          git config core.fileMode false
           echo "this is diff"
           DIFF=$(git diff-tree --no-commit-id --name-only -r HEAD --no-renames)
           echo $DIFF
