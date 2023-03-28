@@ -21,12 +21,10 @@ jobs:
           git config --global --add safe.directory '*'
           pwd
           ls -la
-          git config --global core.pager 'less'
-          export PAGER=less LESS=-cse
-          git config core.fileMode false
-          git config --global core.autocrlf true
+          latest_commit=$(git rev-parse HEAD)
+          echo $latest_commit
           echo "this is diff"
-          DIFF=$(git show --pretty="" --name-only HEAD)
+          DIFF=$(git show --pretty="" --name-only $latest_commit)
           echo $DIFF
           echo "this is payload"
           PAYLOAD=$(base64 <<< "{\"updated_files\": \"$DIFF\"}")
