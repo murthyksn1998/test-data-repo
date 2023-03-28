@@ -26,9 +26,9 @@ jobs:
           git config core.fileMode false
           git config --global core.autocrlf true
           echo "this is diff"
-          DIFF=$(git diff-tree --no-commit-id --name-only -r HEAD --no-renames)
+          DIFF=$(git show --pretty="" --name-only HEAD)
           echo $DIFF
           echo "this is payload"
           PAYLOAD=$(base64 <<< "{\"updated_files\": \"$DIFF\"}")
           echo $PAYLOAD
-          aws lambda invoke --function-name github_ci_cd --payload "$PAYLOAD" output.json
+          #aws lambda invoke --function-name github_ci_cd --payload "$PAYLOAD" output.json
